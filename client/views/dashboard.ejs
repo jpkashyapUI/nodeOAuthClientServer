@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+
+    .dashboard {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .user-info {
+      margin-bottom: 1.5rem;
+    }
+
+    .logout-btn {
+      background-color: #e74c3c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>Welcome, <%= user.name %>!</h2>
+
+    <div class="user-info">
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <!-- <% if (user.picture) { %>
+        <img src="<%= user.picture %>" alt="User picture" width="100" style="border-radius: 50%;">
+      <% } %> -->
+    </div>
+
+    <form action="/logout" method="POST">
+      <button class="logout-btn" type="submit">Logout</button>
+    </form>
+  </div>
+</body>
+</html>

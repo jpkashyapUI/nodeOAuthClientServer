@@ -1,0 +1,23 @@
+{
+  "name": "social_app",
+  "version": "1.0.0",
+  "description": "oAuth login app",
+  "license": "ISC",
+  "author": "jai",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "start-debug": "node — inspect=0.0.0.0 app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.10"
+  }
+}

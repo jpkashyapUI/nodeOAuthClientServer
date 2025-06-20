@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>App Permission Request</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .consent-container {
+      background-color: white;
+      width: 480px;
+      margin-top: 60px;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .app-logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 15px;
+      border-radius: 10px;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .app-name {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .user-info {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .permission-list {
+      margin: 20px 0;
+    }
+
+    .permission-list li {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .approve {
+      background-color: #1a73e8;
+      color: white;
+    }
+
+    .deny {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    .approve:hover {
+      background-color: #155acb;
+    }
+
+    .deny:hover {
+      background-color: #cacaca;
+    }
+  </style>
+</head>
+<body>
+  <div class="consent-container">
+    <div class="app-header">
+      <!-- <div class="app-logo">A</div>  -->
+      <div class="app-name"><%= client %></div>
+    </div>
+
+    <p><strong><%= client %></strong> wants to access the following information:</p>
+
+    <ul class="permission-list">
+      <% scope.split(' ').forEach(s => { %>
+        <li><%= s.charAt(0).toUpperCase() + s.slice(1) %></li>
+      <% }) %>
+    </ul>
+
+    <form method="POST" action="/consent">
+      <input type="hidden" name="client_id" value="<%= client_id %>">
+      <input type="hidden" name="redirect_uri" value="<%= redirect_uri %>">
+      <input type="hidden" name="scope" value="<%= scope %>">
+
+      <div class="buttons">
+        <button class="btn deny" name="approve" value="">Deny</button>
+        <button class="btn approve" name="approve" value="true">Allow</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
