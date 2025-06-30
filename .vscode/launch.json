@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug OAuth Client",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "address": "0.0.0.0",
+      "restart": true,
+      "localRoot": "${workspaceFolder}/client",
+      "remoteRoot": "/app",
+      "protocol": "inspector",
+      "trace": true
+    },
+    {
+      "name": "Debug OAuth Server",
+      "type": "node",
+      "request": "attach",
+      "port": 9230,
+      "address": "0.0.0.0",
+      "restart": true,
+      "localRoot": "${workspaceFolder}/server",
+      "remoteRoot": "/app",
+      "protocol": "inspector",
+      "trace": true
+    }
+  ]
+}

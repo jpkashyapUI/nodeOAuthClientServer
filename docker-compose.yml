@@ -2,48 +2,32 @@ version: '3.8'
 
 services:
 
-  mysql_oauth_server:
+  mysql_oauth_server_client:
     image: mysql:latest
-    container_name: mysql_oauth_server
+    container_name: mysql_oauth_server_client
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: oauth
 
-    ports: 
+    ports:
       - "3307:3306"
     volumes:
       - mysql_data_server:/var/lib/mysql
-      - ./server/oauth.sql:/docker-entrypoint-initdb.d/oauth.sql
+      - ./scripts:/docker-entrypoint-initdb.d
 
-  
-  mysql_oauth_client:
-    image: mysql:latest
-    container_name: mysql_oauth_client
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: social
-
-    ports:
-      - "3308:3306"
-    volumes:
-      - mysql_data_client:/var/lib/mysql
-      - ./client/social.sql:/docker-entrypoint-initdb.d/social.sql
-
-  
   oauth_client:
     container_name: node_client
-    build: 
+    build:
       context: ./client
     ports:
       - "3000:3000"
       - "9229:9229"
-    command: node --inspect=0.0.0.0:9229 app.js
+    command: node --inspect=0.0.0.0:9229 --nolazy app.js
     volumes:
       - ./client:/app
     depends_on:
-      - mysql_oauth_client
+      - mysql_oauth_server_client
     environment:
-      DB_HOST: mysql_oauth_client
+      DB_HOST: host.docker.internal
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: root
@@ -51,16 +35,18 @@ services:
 
   oauth_server:
     container_name: node_server
-    build: 
+    build:
       context: ./server
     ports:
       - "5000:5000"
+      - "9230:9229"
+    command: node --inspect=0.0.0.0:9229 --nolazy app.js
     volumes:
       - ./server:/app
     depends_on:
-      - mysql_oauth_server
+      - mysql_oauth_server_client
     environment:
-      DB_HOST: mysql_oauth_server
+      DB_HOST: host.docker.internal
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: root
@@ -71,4 +57,3 @@ volumes:
   mysql_data_client:
 
 
-    

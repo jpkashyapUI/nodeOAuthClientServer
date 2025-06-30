@@ -49,6 +49,7 @@ const consent = async (req, res) => {
 
 const Callback = async (req, res) => {
     const code = req.query.code;
+    debugger;
 
     // Exchange code for tokens
     const postData = querystring.stringify({

@@ -8,6 +8,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app",
+    "start-debug": "node — inspect=0.0.0.0 app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
